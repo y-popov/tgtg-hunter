@@ -1,0 +1,39 @@
+name: CI/CD
+
+on: push
+
+jobs:
+  deploy:
+    name: Deploy to Google Cloud
+    runs-on: 'ubuntu-latest'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - id: auth
+      name: Authentication
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GOOGLE_CREDENTIALS  }}
+
+    - id: deploy
+      name: Deploy
+      uses: google-github-actions/deploy-cloud-functions@v1
+      with:
+        name: 'tgtg-hunter'
+        runtime: 'python311'
+        entry_point: 'handler'
+        memory_mb: '128'
+        region: 'europe-west2'
+        timeout: '30'
+        min_instances: '0'
+        max_instances: '1'
+        env_vars:
+            "TG_BOT_TOKEN=${{ secrets.TG_BOT_TOKEN }},\
+            TG_CHAT=${{ secrets.TG_CHAT_ID }},\
+            TGTG_CREDENTIALS=${{ secrets.TGTG_CREDENTIALS }},\
+            EMAIL=${{ secrets.EMAIL }}"
