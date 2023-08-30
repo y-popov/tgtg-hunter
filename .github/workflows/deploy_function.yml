@@ -20,6 +20,11 @@ jobs:
       with:
         credentials_json: ${{ secrets.GOOGLE_CREDENTIALS  }}
 
+    - name: Dump credentials
+      run: echo '${{ secrets.TGTG_CREDENTIALS }}' > credentials.json
+      shell: bash
+
+
     - id: deploy
       name: Deploy
       uses: google-github-actions/deploy-cloud-functions@v1
@@ -35,5 +40,4 @@ jobs:
         env_vars:
             "TG_BOT_TOKEN=${{ secrets.TG_BOT_TOKEN }},\
             TG_CHAT=${{ secrets.TG_CHAT_ID }},\
-            TGTG_CREDENTIALS=${{ secrets.TGTG_CREDENTIALS }},\
             EMAIL=${{ secrets.EMAIL }}"

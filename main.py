@@ -11,14 +11,16 @@ from src.tg_tg import compose_message
 tg_bot_token = os.getenv('TG_BOT_TOKEN')
 tg_chat = os.getenv('TG_CHAT')
 email = os.getenv('EMAIL')
-credentials_string = os.getenv('TGTG_CREDENTIALS')
+credentials_filename = 'credentials.json'
 track_list = ['513666', '910441']
 
 
 def main():
     tg = Telegram(token=tg_bot_token, default_chat=tg_chat)
 
-    credentials = json.loads(credentials_string)
+    with open(credentials_filename) as f:
+        credentials = json.load(f)
+
     client = TgtgClient(**credentials)
     records = client.get_items(favorites_only=True, with_stock_only=True)
 

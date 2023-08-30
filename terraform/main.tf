@@ -21,7 +21,7 @@ provider "google" {
 }
 
 data "google_cloudfunctions_function" "tgtg" {
-  name = "tgtg"
+  name = "tgtg-hunter"
 }
 
 resource "google_cloud_scheduler_job" "timer" {
