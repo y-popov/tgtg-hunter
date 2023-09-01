@@ -4,7 +4,6 @@ import flask
 import functions_framework
 from tgtg import TgtgClient
 
-
 from src.telegram import Telegram
 from src.tg_tg import compose_message
 
@@ -27,7 +26,7 @@ def main():
     for record in records:
         if record['item']['item_id'] in track_list:
             message = compose_message(record)
-            tg.send_message(message)
+            tg.send_message(message.translate(tg.markdown_escape))
 
 
 @functions_framework.http
