@@ -11,7 +11,7 @@ tg_bot_token = os.getenv('TG_BOT_TOKEN')
 tg_chat = os.getenv('TG_CHAT')
 email = os.getenv('EMAIL')
 credentials_filename = 'credentials.json'
-track_list = ['513666', '910441']
+track_list = ['513666', '22761', '749373', '1255158', '24495']
 
 
 def main():
